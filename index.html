@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>YouTube to MP3/MP4 Converter</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif; /* Use the desired modern bold font */
+            text-align: center;
+        }
+        h1 {
+            font-weight: bold; /* Apply bold style to the header text */
+            color: #333;
+        }
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+        }
+        #progress-container {
+            display: none;
+        }
+        progress {
+            width: 100%;
+        }
+    </style>
+    <!-- Include the Roboto font from Google Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap">
+</head>
+<body>
+    <div class="container">
+        <h1>F**K Ads, We Made it Simple</h1>
+        <p>Paste YouTube link here:</p>
+        <input type="text" id="youtube-link" placeholder="Enter YouTube link">
+        <br><br>
+        <label for="format">Select Format:</label>
+        <select id="format">
+            <option value="mp3">MP3</option>
+            <option value="mp4">MP4</option>
+        </select>
+        <br><br>
+        <label for="quality">Select Quality:</label>
+        <select id="quality">
+            <option value="low">Low</option>
+            <option value="medium">Medium</option>
+            <option value="high">High</option>
+        </select>
+        <br><br>
+        <button id="convert-button">Convert</button>
+        <div id="progress-container">
+            <progress id="progress" value="0" max="100"></progress>
+        </div>
+    </div>
+
+    <script>
+        const convertButton = document.getElementById("convert-button");
+        const progressContainer = document.getElementById("progress-container");
+        const progressBar = document.getElementById("progress");
+        const youtubeLinkInput = document.getElementById("youtube-link");
+        const formatSelect = document.getElementById("format");
+        const qualitySelect = document.getElementById("quality");
+
+        convertButton.addEventListener("click", () => {
+            const youtubeLink = youtubeLinkInput.value;
+            const format = formatSelect.value;
+            const quality = qualitySelect.value;
+
+            // Validate input and start conversion process (not implemented in this code snippet).
+            if (youtubeLink && format && quality) {
+                // Display progress bar and start conversion.
+                progressContainer.style.display = "block";
+                simulateConversion();
+            }
+        });
+
+        function simulateConversion() {
+            // Simulate a conversion process with a progress bar.
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += Math.random() * 10;
+                progressBar.value = progress;
+                if (progress >= 100) {
+                    clearInterval(interval);
+                    progressContainer.style.display = "none";
+                    alert("Conversion complete!");
+                }
+            }, 500);
+        }
+    </script>
+</body>
+</html>
