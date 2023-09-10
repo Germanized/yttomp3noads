@@ -55,7 +55,7 @@
 <body>
     <div class="container">
         <div class="box">
-            <h1>F**K Ads So We Made it Simple</h1>
+            <h1>F**K Ads, We Made it Simple</h1>
             <form action="/convert" method="POST" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="youtube-link">Paste YouTube link here:</label>
@@ -68,9 +68,9 @@
                         <option value="mp4">MP4</option>
                     </select>
                 </div>
-                <div id="quality-options" class="form-group">
+                <div id="quality-options-mp3" class="form-group" style="display: none;">
                     <label for="quality">Select Quality:</label>
-                    <select name="quality" id="quality" class="form-control">
+                    <select name="quality" id="quality-mp3" class="form-control">
                         <optgroup label="MP3 Quality">
                             <option value="320kbps">320 kbps</option>
                             <option value="192kbps">192 kbps</option>
@@ -78,6 +78,11 @@
                             <option value="96kbps">96 kbps</option>
                             <option value="32kbps">32 kbps</option>
                         </optgroup>
+                    </select>
+                </div>
+                <div id="quality-options-mp4" class="form-group" style="display: none;">
+                    <label for="quality">Select Quality:</label>
+                    <select name="quality" id="quality-mp4" class="form-control">
                         <optgroup label="MP4 Quality">
                             <option value="1080p">1080p</option>
                             <option value="720p">720p</option>
@@ -98,5 +103,23 @@
             </div>
         </div>
     </div>
+    <script>
+        const formatSelect = document.getElementById("format");
+        const qualityOptionsMP3 = document.getElementById("quality-options-mp3");
+        const qualityOptionsMP4 = document.getElementById("quality-options-mp4");
+
+        formatSelect.addEventListener("change", () => {
+            if (formatSelect.value === "mp3") {
+                qualityOptionsMP3.style.display = "block";
+                qualityOptionsMP4.style.display = "none";
+            } else if (formatSelect.value === "mp4") {
+                qualityOptionsMP3.style.display = "none";
+                qualityOptionsMP4.style.display = "block";
+            } else {
+                qualityOptionsMP3.style.display = "none";
+                qualityOptionsMP4.style.display = "none";
+            }
+        });
+    </script>
 </body>
 </html>
