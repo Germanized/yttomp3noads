@@ -8,7 +8,8 @@
             padding: 0;
             font-family: 'Roboto', sans-serif;
             text-align: center;
-            background-color: #f2f2f2;
+            background-color: #0073e6;
+            color: white;
             overflow: hidden;
         }
         .container {
@@ -37,10 +38,11 @@
             border: 1px solid #ccc;
             border-radius: 20px;
             background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
         }
         h1 {
             font-weight: bold;
-            color: #333;
+            color: #0073e6;
         }
         input[type="text"],
         select {
@@ -85,14 +87,16 @@
                 <option value="mp4">MP4</option>
             </select>
             <br><br>
-            <label for="quality">Select Quality:</label>
-            <select id="quality">
-                <option value="320kbps">320 kbps</option>
-                <option value="192kbps">192 kbps</option>
-                <option value="128kbps">128 kbps</option>
-                <option value="96kbps">96 kbps</option>
-                <option value="32kbps">32 kbps</option>
-            </select>
+            <div id="mp3-options">
+                <label for="quality">Select Quality:</label>
+                <select id="quality">
+                    <option value="320kbps">320 kbps</option>
+                    <option value="192kbps">192 kbps</option>
+                    <option value="128kbps">128 kbps</option>
+                    <option value="96kbps">96 kbps</option>
+                    <option value="32kbps">32 kbps</option>
+                </select>
+            </div>
             <br><br>
             <button id="convert-button">Convert</button>
             <div id="progress-container">
@@ -102,11 +106,21 @@
     </div>
 
     <script>
+        const formatSelect = document.getElementById("format");
+        const mp3Options = document.getElementById("mp3-options");
+
+        formatSelect.addEventListener("change", () => {
+            if (formatSelect.value === "mp3") {
+                mp3Options.style.display = "block";
+            } else {
+                mp3Options.style.display = "none";
+            }
+        });
+
         const convertButton = document.getElementById("convert-button");
         const progressContainer = document.getElementById("progress-container");
         const progressBar = document.getElementById("progress");
         const youtubeLinkInput = document.getElementById("youtube-link");
-        const formatSelect = document.getElementById("format");
         const qualitySelect = document.getElementById("quality");
 
         convertButton.addEventListener("click", () => {
@@ -114,7 +128,7 @@
             const format = formatSelect.value;
             const quality = qualitySelect.value;
 
-            if (youtubeLink && format && quality) {
+            if (youtubeLink && format && (format !== "mp3" || quality)) {
                 progressContainer.style.display = "block";
                 simulateConversion();
             }
