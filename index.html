@@ -4,30 +4,73 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>YouTube to MP3/MP4 Converter</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap">
+    <!-- Link to Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
-        <!-- Your CSS styles here -->
+        body {
+            background-color: #0073e6;
+            color: white;
+        }
+        .container {
+            padding-top: 100px;
+        }
+        .box {
+            background-color: white;
+            border-radius: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            padding: 30px;
+        }
+        h1 {
+            font-weight: bold;
+            color: #0073e6;
+        }
+        input[type="text"],
+        select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 20px;
+        }
+        button {
+            background-color: #0073e6;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #0059b3;
+        }
+        #progress-container {
+            display: none;
+            margin-top: 20px;
+        }
+        progress {
+            width: 100%;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="box">
             <h1>F**K Ads So We Made it Simple</h1>
-            <p>Paste YouTube link here:</p>
             <form action="/convert" method="POST" enctype="multipart/form-data">
-                <input type="text" name="youtube_link" id="youtube-link" placeholder="Enter YouTube link">
-                <br><br>
-                <label for="format">Select Format:</label>
-                <select name="format" id="format">
-                    <option value="mp3">MP3</option>
-                    <option value="mp4">MP4</option>
-                </select>
-                <br><br>
-                <!-- Add a container for quality options -->
-                <div id="quality-options">
+                <div class="form-group">
+                    <label for="youtube-link">Paste YouTube link here:</label>
+                    <input type="text" name="youtube_link" id="youtube-link" class="form-control" placeholder="Enter YouTube link" required>
+                </div>
+                <div class="form-group">
+                    <label for="format">Select Format:</label>
+                    <select name="format" id="format" class="form-control" required>
+                        <option value="mp3">MP3</option>
+                        <option value="mp4">MP4</option>
+                    </select>
+                </div>
+                <div id="quality-options" class="form-group">
                     <label for="quality">Select Quality:</label>
-                    <select name="quality" id="quality">
-                        <!-- Quality options for MP3 -->
+                    <select name="quality" id="quality" class="form-control">
                         <optgroup label="MP3 Quality">
                             <option value="320kbps">320 kbps</option>
                             <option value="192kbps">192 kbps</option>
@@ -35,7 +78,6 @@
                             <option value="96kbps">96 kbps</option>
                             <option value="32kbps">32 kbps</option>
                         </optgroup>
-                        <!-- Quality options for MP4 -->
                         <optgroup label="MP4 Quality">
                             <option value="1080p">1080p</option>
                             <option value="720p">720p</option>
@@ -44,8 +86,7 @@
                         </optgroup>
                     </select>
                 </div>
-                <br><br>
-                <button type="submit" id="convert-button">Convert</button>
+                <button type="submit" id="convert-button" class="btn btn-primary btn-block">Convert</button>
                 <div id="progress-container">
                     <progress id="progress" value="0" max="100"></progress>
                 </div>
@@ -53,57 +94,9 @@
             <div id="download-links" style="display: none;">
                 <p>Conversion Complete!</p>
                 <p>Download your file:</p>
-                <a id="download-link" href="#" download></a>
+                <a id="download-link" href="#" download class="btn btn-success btn-block"></a>
             </div>
         </div>
     </div>
-
-    <script>
-        const formatSelect = document.getElementById("format");
-        const qualityOptions = document.getElementById("quality-options");
-
-        formatSelect.addEventListener("change", () => {
-            if (formatSelect.value === "mp3") {
-                qualityOptions.querySelector('optgroup[label="MP3 Quality"]').style.display = "block";
-                qualityOptions.querySelector('optgroup[label="MP4 Quality"]').style.display = "none";
-            } else {
-                qualityOptions.querySelector('optgroup[label="MP3 Quality"]').style.display = "none";
-                qualityOptions.querySelector('optgroup[label="MP4 Quality"]').style.display = "block";
-            }
-        });
-
-        const convertButton = document.getElementById("convert-button");
-        const progressContainer = document.getElementById("progress-container");
-        const progressBar = document.getElementById("progress");
-        const youtubeLinkInput = document.getElementById("youtube-link");
-
-        convertButton.addEventListener("click", () => {
-            const youtubeLink = youtubeLinkInput.value;
-            const format = formatSelect.value;
-
-            if (youtubeLink && format) {
-                progressContainer.style.display = "block";
-                simulateConversion();
-            }
-        });
-
-        function simulateConversion() {
-            let progress = 0;
-            const interval = setInterval(() => {
-                progress += Math.random() * 10;
-                progressBar.value = progress;
-                if (progress >= 100) {
-                    clearInterval(interval);
-                    progressContainer.style.display = "none";
-                    document.getElementById("download-links").style.display = "block";
-                    const format = formatSelect.value;
-                    const quality = document.getElementById("quality").value;
-                    const link = document.getElementById("download-link");
-                    link.href = `/download/${format}/${quality}`;
-                    link.textContent = `Download ${format.toUpperCase()}`;
-                }
-            }, 500);
-        }
-    </script>
 </body>
 </html>
