@@ -4,11 +4,11 @@
     <title>YouTube to MP3/MP4 Converter</title>
     <style>
         body {
-            font-family: 'Roboto', sans-serif; /* Use the desired modern bold font */
+            font-family: 'Roboto', sans-serif;
             text-align: center;
         }
         h1 {
-            font-weight: bold; /* Apply bold style to the header text */
+            font-weight: bold;
             color: #333;
         }
         .container {
@@ -25,7 +25,6 @@
             width: 100%;
         }
     </style>
-    <!-- Include the Roboto font from Google Fonts -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap">
 </head>
 <body>
@@ -66,16 +65,13 @@
             const format = formatSelect.value;
             const quality = qualitySelect.value;
 
-            // Validate input and start conversion process (not implemented in this code snippet).
             if (youtubeLink && format && quality) {
-                // Display progress bar and start conversion.
                 progressContainer.style.display = "block";
                 simulateConversion();
             }
         });
 
         function simulateConversion() {
-            // Simulate a conversion process with a progress bar.
             let progress = 0;
             const interval = setInterval(() => {
                 progress += Math.random() * 10;
