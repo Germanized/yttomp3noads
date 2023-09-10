@@ -56,7 +56,7 @@
     <div class="container">
         <div class="box">
             <h1>F**K Ads, We Made it Simple</h1>
-            <form action="/convert" method="POST" enctype="multipart/form-data">
+            <form>
                 <div class="form-group">
                     <label for="youtube-link">Paste YouTube link here:</label>
                     <input type="text" name="youtube_link" id="youtube-link" class="form-control" placeholder="Enter YouTube link" required>
@@ -91,7 +91,7 @@
                         </optgroup>
                     </select>
                 </div>
-                <button type="submit" id="convert-button" class="btn btn-primary btn-block">Convert</button>
+                <button type="button" id="convert-button" class="btn btn-primary btn-block" onclick="convertVideo()">Convert</button>
                 <div id="progress-container">
                     <progress id="progress" value="0" max="100"></progress>
                 </div>
@@ -104,22 +104,42 @@
         </div>
     </div>
     <script>
-        const formatSelect = document.getElementById("format");
-        const qualityOptionsMP3 = document.getElementById("quality-options-mp3");
-        const qualityOptionsMP4 = document.getElementById("quality-options-mp4");
+    function convertVideo() {
+        const youtubeLink = document.getElementById("youtube-link").value;
+        const format = document.getElementById("format").value;
+        const quality = document.getElementById("quality").value;
 
-        formatSelect.addEventListener("change", () => {
-            if (formatSelect.value === "mp3") {
-                qualityOptionsMP3.style.display = "block";
-                qualityOptionsMP4.style.display = "none";
-            } else if (formatSelect.value === "mp4") {
-                qualityOptionsMP3.style.display = "none";
-                qualityOptionsMP4.style.display = "block";
-            } else {
-                qualityOptionsMP3.style.display = "none";
-                qualityOptionsMP4.style.display = "none";
+        // Send an AJAX request to your Flask server
+        const xhr = new XMLHttpRequest();
+        xhr.open("POST", "/convert", true);
+        xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                // Handle the response from the server
+                const response = JSON.parse(xhr.responseText);
+                if (response.success) {
+                    // Conversion was successful, display a download link
+                    const downloadLinks = document.getElementById("download-links");
+                    downloadLinks.style.display = "block";
+                    downloadLinks.innerHTML = `
+                        <p>Conversion Complete!</p>
+                        <p>Download your file:</p>
+                        <a href="${response.download_url}" download class="btn btn-success btn-block">Download</a>
+                    `;
+                } else {
+                    // Conversion failed, display an error message
+                    alert("Conversion failed. Please try again.");
+                }
             }
-        });
+        };
+
+        // Send the data as a JSON string
+        xhr.send(JSON.stringify({ youtube_link: youtubeLink, format: format, quality: quality }));
+    }
+</script>
+.
+        }
     </script>
 </body>
 </html>
