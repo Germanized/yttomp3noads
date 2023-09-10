@@ -4,22 +4,65 @@
     <title>YouTube to MP3/MP4 Converter</title>
     <style>
         body {
+            margin: 0;
+            padding: 0;
             font-family: 'Roboto', sans-serif;
             text-align: center;
+            background-color: #f2f2f2;
+        }
+        .container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            animation: fadeIn 0.5s ease-in-out forwards;
+        }
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+        .box {
+            max-width: 400px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: white;
         }
         h1 {
             font-weight: bold;
             color: #333;
         }
-        .container {
-            max-width: 400px;
-            margin: 0 auto;
-            padding: 20px;
+        input[type="text"],
+        select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
             border: 1px solid #ccc;
-            border-radius: 10px;
+            border-radius: 20px;
+        }
+        button {
+            background-color: #0073e6;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0059b3;
         }
         #progress-container {
             display: none;
+            margin-top: 20px;
         }
         progress {
             width: 100%;
@@ -29,26 +72,30 @@
 </head>
 <body>
     <div class="container">
-        <h1>F**K Ads, We Made it Simple</h1>
-        <p>Paste YouTube link here:</p>
-        <input type="text" id="youtube-link" placeholder="Enter YouTube link">
-        <br><br>
-        <label for="format">Select Format:</label>
-        <select id="format">
-            <option value="mp3">MP3</option>
-            <option value="mp4">MP4</option>
-        </select>
-        <br><br>
-        <label for="quality">Select Quality:</label>
-        <select id="quality">
-            <option value="low">Low</option>
-            <option value="medium">Medium</option>
-            <option value="high">High</option>
-        </select>
-        <br><br>
-        <button id="convert-button">Convert</button>
-        <div id="progress-container">
-            <progress id="progress" value="0" max="100"></progress>
+        <div class="box">
+            <h1>F**K Ads, We Made it Simple</h1>
+            <p>Paste YouTube link here:</p>
+            <input type="text" id="youtube-link" placeholder="Enter YouTube link">
+            <br><br>
+            <label for="format">Select Format:</label>
+            <select id="format">
+                <option value="mp3">MP3</option>
+                <option value="mp4">MP4</option>
+            </select>
+            <br><br>
+            <label for="quality">Select Quality:</label>
+            <select id="quality">
+                <option value="320kbps">320 kbps</option>
+                <option value="192kbps">192 kbps</option>
+                <option value="128kbps">128 kbps</option>
+                <option value="96kbps">96 kbps</option>
+                <option value="32kbps">32 kbps</option>
+            </select>
+            <br><br>
+            <button id="convert-button">Convert</button>
+            <div id="progress-container">
+                <progress id="progress" value="0" max="100"></progress>
+            </div>
         </div>
     </div>
 
