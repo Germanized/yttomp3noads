@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const resultDiv = document.getElementById("result");
     const progressDiv = document.getElementById("progress");
     const downloadLink = document.getElementById("downloadLink");
+    const convertButton = document.getElementById("convertButton");
 
     function updateProgress() {
         let progress = 0;
@@ -41,6 +42,5 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     // Attach the `convertVideo` function to the button's click event
-    const convertButton = document.querySelector("button");
     convertButton.addEventListener("click", convertVideo);
 });
