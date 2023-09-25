@@ -1,145 +1,25 @@
- <!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html>
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YouTube to MP3/MP4 Converter</title>
-    <!-- Link to Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <style>
-        body {
-            background-color: #0073e6;
-            color: white;
-        }
-        .container {
-            padding-top: 100px;
-        }
-        .box {
-            background-color: white;
-            border-radius: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-            padding: 30px;
-        }
-        h1 {
-            font-weight: bold;
-            color: #0073e6;
-        }
-        input[type="text"],
-        select {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border-radius: 20px;
-        }
-        button {
-            background-color: #0073e6;
-            color: white;
-            border: none;
-            border-radius: 20px;
-            padding: 10px 20px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-        button:hover {
-            background-color: #0059b3;
-        }
-        #progress-container {
-            display: none;
-            margin-top: 20px;
-        }
-        progress {
-            width: 100%;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
-    <div class="container">
-        <div class="box">
-            <h1>F**K Ads, We Made it Simple</h1>
-            <form>
-                <div class="form-group">
-                    <label for="youtube-link">Paste YouTube link here:</label>
-                    <input type="text" name="youtube_link" id="youtube-link" class="form-control" placeholder="Enter YouTube link" required>
-                </div>
-                <div class="form-group">
-                    <label for="format">Select Format:</label>
-                    <select name="format" id="format" class="form-control" required>
-                        <option value="mp3">MP3</option>
-                        <option value="mp4">MP4</option>
-                    </select>
-                </div>
-                <div id="quality-options-mp3" class="form-group" style="display: none;">
-                    <label for="quality">Select Quality:</label>
-                    <select name="quality" id="quality-mp3" class="form-control">
-                        <optgroup label="MP3 Quality">
-                            <option value="320kbps">320 kbps</option>
-                            <option value="192kbps">192 kbps</option>
-                            <option value="128kbps">128 kbps</option>
-                            <option value="96kbps">96 kbps</option>
-                            <option value="32kbps">32 kbps</option>
-                        </optgroup>
-                    </select>
-                </div>
-                <div id="quality-options-mp4" class="form-group" style="display: none;">
-                    <label for="quality">Select Quality:</label>
-                    <select name="quality" id="quality-mp4" class="form-control">
-                        <optgroup label="MP4 Quality">
-                            <option value="1080p">1080p</option>
-                            <option value="720p">720p</option>
-                            <option value="360p">360p</option>
-                            <option value="240p">240p</option>
-                        </optgroup>
-                    </select>
-                </div>
-                <button type="button" id="convert-button" class="btn btn-primary btn-block" onclick="convertVideo()">Convert</button>
-                <div id="progress-container">
-                    <progress id="progress" value="0" max="100"></progress>
-                </div>
-            </form>
-            <div id="download-links" style="display: none;">
-                <p>Conversion Complete!</p>
-                <p>Download your file:</p>
-                <a id="download-link" href="#" download class="btn btn-success btn-block"></a>
-            </div>
+    <video autoplay loop muted id="video-bg">
+        <source src="back.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <div class="converter-container">
+        <h1 class="title">YouTube to MP3 Converter</h1>
+        <div class="options-container">
+            <input type="text" id="videoURL" placeholder="Enter YouTube URL">
+            <button onclick="convertVideo()">Convert to MP3</button>
+        </div>
+        <div id="result" class="converter-result">
+            <div id="progress" class="progress">Converting...</div>
+            <a id="downloadLink" href="#" download style="display: none;">Download MP3</a>
         </div>
     </div>
-    <script>
-    function convertVideo() {
-        const youtubeLink = document.getElementById("youtube-link").value;
-        const format = document.getElementById("format").value;
-        const quality = document.getElementById("quality").value;
+    <script src="script.js"></script>
 
-        // Send an AJAX request to your Flask server
-        const xhr = new XMLHttpRequest();
-        xhr.open("POST", "/convert", true);
-        xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState === 4 && xhr.status === 200) {
-                // Handle the response from the server
-                const response = JSON.parse(xhr.responseText);
-                if (response.success) {
-                    // Conversion was successful, display a download link
-                    const downloadLinks = document.getElementById("download-links");
-                    downloadLinks.style.display = "block";
-                    downloadLinks.innerHTML = `
-                        <p>Conversion Complete!</p>
-                        <p>Download your file:</p>
-                        <a href="${response.download_url}" download class="btn btn-success btn-block">Download</a>
-                    `;
-                } else {
-                    // Conversion failed, display an error message
-                    alert("Conversion failed. Please try again.");
-                }
-            }
-        };
-
-        // Send the data as a JSON string
-        xhr.send(JSON.stringify({ youtube_link: youtubeLink, format: format, quality: quality }));
-    }
-</script>
-.
-        }
-    </script>
 </body>
 </html>
