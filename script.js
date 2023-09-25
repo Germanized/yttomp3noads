@@ -12,9 +12,9 @@ document.addEventListener("DOMContentLoaded", function() {
             // Display the progress bar
             progressDiv.style.display = "block";
             
-            // Use ytdl-core to fetch video info and obtain the MP3 stream URL
+            // Use ytdl-core-browser to fetch video info and obtain the MP3 stream URL
             try {
-                const ytdl = require('ytdl-core');
+                const ytdl = require('ytdl-core-browser');
                 const info = await ytdl.getInfo(videoURLValue);
                 const audioURL = ytdl.chooseFormat(info.formats, { quality: 'highestaudio' }).url;
                 downloadLink.href = audioURL;
