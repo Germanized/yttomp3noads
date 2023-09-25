@@ -20,13 +20,14 @@ document.addEventListener("DOMContentLoaded", function() {
         clearInterval(progressInterval);
         progressDiv.style.display = "none";
         resultDiv.innerHTML = "Conversion complete!";
-        downloadLink.href = "#"; // Set your download link here
         downloadLink.style.display = "block";
+        downloadLink.href = "path/to/your/converted.mp3"; // Set the actual MP3 file path
+        downloadLink.download = "converted.mp3";
     }
 
     let progressInterval;
 
-    function convertVideo() {
+    async function convertVideo() {
         const videoURLValue = videoURL.value;
 
         if (videoURLValue) {
@@ -35,7 +36,8 @@ document.addEventListener("DOMContentLoaded", function() {
             progressInterval = updateProgress();
 
             // Simulate a conversion delay (replace with actual logic)
-            setTimeout(completeConversion, 3000);
+            setTimeout(completeConversion, 5000); // Simulating a 5-second conversion
+
         } else {
             resultDiv.innerHTML = "Please enter a valid YouTube URL.";
         }
