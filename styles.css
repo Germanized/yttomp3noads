@@ -1,0 +1,115 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+    background: #f5f5f5;
+}
+
+#video-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+}
+
+.converter-container {
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    max-width: 400px;
+    position: relative;
+    z-index: 1;
+    margin: 0 auto;
+}
+
+.title {
+    font-size: 24px;
+    color: #3498db;
+    margin-bottom: 20px;
+    animation: fadeInUp 1s;
+}
+
+.options-container {
+    margin: 20px 0;
+}
+
+input, button {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    margin: 10px;
+    transition: background-color 0.3s, transform 0.2s;
+    outline: none;
+}
+
+input:focus, button:hover {
+    background-color: #3498db;
+    color: #fff;
+    transform: scale(1.02);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+button {
+    background-color: #2980b9;
+    color: #fff;
+    cursor: pointer;
+}
+
+.converter-result {
+    display: none;
+    opacity: 0;
+    transition: opacity 1s;
+}
+
+/* Style the download button */
+#downloadLink {
+    display: none;
+    margin-top: 10px;
+    font-size: 18px;
+    color: #2980b9;
+    text-decoration: none;
+    transition: opacity 1s;
+}
+
+/* Style for showing the download link when the result is visible */
+.converter-result.show-result #downloadLink {
+    display: block;
+}
+
+/* Add styles for the progress bar */
+.progress {
+    background-color: #2980b9;
+    color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 10px;
+    font-size: 18px;
+    display: none; /* Initially hidden */
+    transition: opacity 1s; /* Add a transition for a smooth fade-in effect */
+}
+
+/* Style for showing the progress bar when converting */
+.converter-result.converting #progress {
+    display: block;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
